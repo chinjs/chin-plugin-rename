@@ -11,6 +11,7 @@ export type Element = string | (value: string, out: Out) => string
 export type Options = {
   root?: Element,
   dir?: Element,
+  base?: Element,
   name?: Element,
   ext?: Element,
   quiet?: boolean,
@@ -21,11 +22,11 @@ export type Processor = (
   util: { out: Out, msg: (value: string) => void }
 ) => [string, any]
 
-export type Outpath = (options: Options) => {
+export type Plugin = (options: Options) => {
   isStream: false,
   processor: Processor
 }
 
 declare module.exports: {
-  default: Outpath
+  default: Plugin
 }

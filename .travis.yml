@@ -18,6 +18,6 @@ deploy:
   email: toxictoxer@gmail.com
   on:
     tags: true
-    repo: chinjs/chin-plugin-outpath
+    repo: chinjs/chin-plugin-rename
   api_key:
     secure: X7IYiADlljOe37dLizRVkXaH+NE4xyLbkj1JekdgomNDOqCCq+TyZ+Geu+NVSiTHW77Zl0QB1/HVlxnLlPORjVQ+KpZ8baR0cr9Y2Tzoy49W94T469cRyNg/qea++gteBMLkvk4bGonoLTqG/VoVBOgF7aZs+gGUGECxi+Ivq5p4zBG3/fUyOFo+pDYrgM+JTbr7e145xeRNo+T4Z8pxi+7hejAug5THS0P01KVvLdE+k2Gx3mI6in9pl5ve87NnXVQN4vv42ao5b1rX/LWoXffXhamypc31fPLOoio+bR4Y9yW4LVG7D0fgqFNxMEWi/f0GhM76mOkOQaQsru3qR3pC2IWlmjUET+Ay41AG8NptjYdnm96yzuqsS+hk3v9W+UOd3wuSx4bPXOsE58y1UjvX1UzcOzXd10jLN9zjTh21CWZRLf98vkDoi5Gd57RKBoRcUgZ4FhRmm2krVTB/lMSFulVDNpzN3FyD7Yvp/SbVrxbi4INJFo8jiHzr3OTelUWtv1V9dkxrSs4GEKY267S0xQQnr+HwQrIz5oFmJy4PEicDBuKZ6/2UDPH1eY/T+uq1tq2G4kNJwJWVH629H9t/50hWjMdEqXUHd+ZYfONyBugPlHnmsJBqtJe55wSBDsnqH+EuurB6dNhQdPPznlmXo3btbgHbNJ4fQKK6MLs=

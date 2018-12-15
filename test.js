@@ -1,6 +1,6 @@
 import assert from 'assert'
 import path from 'path'
-import Outpath from './index.js'
+import Rename from './index.js'
 
 const parse = (filepath) => {
   const { base, ...obj } = path.parse(filepath)
@@ -17,6 +17,7 @@ describe('success', () => {
   it('()', test())
   it('({ root })', test({ root: '/' }))
   it('({ dir })', test({ dir: '/home/user/dir' }))
+  it('({ base })', test({ base: 'hoge.fuga' }))
   it('({ name })', test({ name: 'hoge' }))
   it('({ ext })', test({ ext: '.fuga' }))
   it('({ quiet })', test({ quiet: true }))
@@ -24,7 +25,7 @@ describe('success', () => {
 
   function test(options) {
     return () => {
-      const { isStream, processor } = Outpath(options)
+      const { isStream, processor } = Rename(options)
       assert.ok(isStream === false)
 
       const [ outpath, data ] = processor('data', util)
@@ -41,7 +42,7 @@ describe('fail', () => {
 
   function test(options) {
     return () => {
-      const { processor } = Outpath(options)
+      const { processor } = Rename(options)
       assert.throws(() => processor('data', util))
     }
   }

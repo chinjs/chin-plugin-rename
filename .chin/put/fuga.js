@@ -1,0 +1,1 @@
+const fuga = 'fuga'

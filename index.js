@@ -1,46 +1,61 @@
 // @flow
 import path from 'path'
-import type { Outpath, Options, Out, Processor } from './index.js.flow'
+import type { Plugin, Out, Processor, Element } from './index.js.flow'
 
-const elements = [
-  'root',
-  'dir',
-  'name',
-  'ext',
-]
+type Gev = (out: Out) => string
+type Gen = (out: Out) => Generated
+type Elements = {
+  root?: Element,
+  dir?: Element,
+  base?: Element,
+  name?: Element,
+  ext?: Element,
+}
+type Generated = {
+  root: string,
+  dir: string,
+  base?: string,
+  name?: string,
+  ext?: string,
+}
 
-type AnyObject = { [string]: any }
-
-const assign = (objects: AnyObject[]): AnyObject => objects.reduce((a, c) => ({ ...a, ...c }), {})
-
-const hog = (options: Options): (out: Out) => Out => {
-  const map = assign(elements.map(element => ({
-    [element]: hov(options, element)
-  })))
-
-  return (out) => assign(elements.map(element => {
-    const value = map[element](out)
-    if (typeof value !== 'string') throw new Error(``)
-    return { [element]: value }
+const hog = (elements: Elements): Gen => {
+  const entries = Object.keys(elements).map(el => [el, hov(elements, el)])
+  return (out) => Object.assign({}, ...entries.map(([ el, gev ]) => {
+    const value = gev(out)
+    if (typeof value !== 'string') throw new Error(`${el} is invalid value`)
+    return { [el]: value }
   }))
 }
 
-const hov = (options: Options, key: string): (out: Out) => string =>
-  typeof options[key] === 'function'
-  ? (out) => options[key](out[key], out)
-  : (out) => options[key] || out[key]
+const hov = (elements: Elements, key: string): Gev =>
+  typeof elements[key] === 'function'
+  ? (out) => elements[key](out[key], out)
+  : (out) => elements[key] || out[key]
 
-const outpath: Outpath = (options = {}) => {
-  const gen = hog(options)
+const format: any = path.format;(format: (Generated) => string)
+
+const plugin: Plugin = (options = {}) => {
+  const {
+    root,
+    dir,
+    base,
+    name,
+    ext,
+    quiet,
+  } = options
+
+  const gen = base
+  ? hog({ root, dir, base })
+  : hog({ root, dir, name, ext })
 
   const processor: Processor = (data, { out, msg }) => {
-    const generated: AnyObject = gen(out)
-    const outpath = path.format(generated)
-    if (!options.quiet) msg(` ${outpath}`)
-    return [outpath, data]
+    const outpath = format(gen(out))
+    if (!quiet) msg(` ${outpath}`)
+    return [ outpath, data ]
   }
 
   return { isStream: false, processor }
 }
 
-export default outpath
+export default plugin
