@@ -1,0 +1,31 @@
+// @flow
+export type Out = {
+  root: string,
+  dir: string,
+  name: string,
+  ext: string,
+}
+
+export type Element = string | (value: string, out: Out) => string
+
+export type Options = {
+  root?: Element,
+  dir?: Element,
+  name?: Element,
+  ext?: Element,
+  quiet?: boolean,
+}
+
+export type Processor = (
+  data: any,
+  util: { out: Out, msg: (value: string) => void }
+) => [string, any]
+
+export type Outpath = (options: Options) => {
+  isStream: false,
+  processor: Processor
+}
+
+declare module.exports: {
+  default: Outpath
+}

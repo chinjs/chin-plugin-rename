@@ -1,0 +1,50 @@
+{
+  "name": "chin-plugin-outpath",
+  "version": "0.0.1",
+  "repository": "chinjs/chin-plugin-outpath",
+  "author": "kthjm <toxictoxer@gmail.com>",
+  "license": "MIT",
+  "description": "",
+  "files": [
+    ".dist/"
+  ],
+  "main": ".dist/index.js",
+  "keywords": [
+    "chin",
+    "chin-plugin",
+    "filename"
+  ],
+  "nyc": {
+    "require": [
+      "@babel/register"
+    ],
+    "sourceMap": false,
+    "instrument": false
+  },
+  "scripts": {
+    "type": "flow",
+    "test": "cross-env BABEL_ENV=test nyc mocha",
+    "coverage": "nyc report --reporter=lcov && codecov",
+    "build": "cross-env BABEL_ENV=build babel index.js -d .dist",
+    "postbuild": "cpy index.js.flow .dist"
+  },
+  "peerDependencies": {
+    "chin": "^3.1.6"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/register": "^7.0.0",
+    "babel-plugin-istanbul": "^5.1.0",
+    "babel-preset-power-assert": "^3.0.0",
+    "codecov": "^3.1.0",
+    "cpy-cli": "^2.0.0",
+    "cross-env": "^5.2.0",
+    "flow-bin": "^0.89.0",
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0",
+    "power-assert": "^1.6.1"
+  }
+}

@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+- '8'
+cache:
+  yarn: true
+  directories:
+  - node_modules
+script:
+- yarn type
+- yarn test
+after_success:
+- yarn coverage
+before_deploy:
+- yarn build
+deploy:
+  provider: npm
+  skip_cleanup: true
+  email: toxictoxer@gmail.com
+  on:
+    tags: true
+    repo: chinjs/chin-plugin-outpath
